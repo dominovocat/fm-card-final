@@ -3,31 +3,29 @@
 fetch("./assets/js/data.json")
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
-    
+    const cardsContainer = document.getElementById("cardsContainer");
+    const HTMLElements = data
+      .filter(
+        (data) =>
+          data.firstName &&
+          data.lastName &&
+          data.profilePicture &&
+          data.contacts
+      )
+      .map((data) => createActorCards(data));
+      
   });
 
-const cardsContainer = document.getElementById("cardsContainer");
-const HTMLElements = []
-  .filter(
-    (actor) =>
-      actor.firstName &&
-      actor.lastName &&
-      actor.profilePicture &&
-      actor.contacts
-  )
-  .map((actor) => createActorCards(actor));
-
-function createActorCards(actor) {
+function createActorCards(data) {
   return createElement("li", { classNames: ["cardWrapper"] }, [
     createElement("article", { classNames: ["cardContainer"] }, [
-      createImageWrapper(actor),
+      createImageWrapper(data),
       createElement("h2", { classNames: ["cardName"] }, [
-        document.createTextNode(actor.firstName || "noname"),
-        document.createTextNode(actor.lastName),
+        document.createTextNode(data.firstName || "noname"),
+        document.createTextNode(data.lastName),
       ]),
       createElement("p", { classNames: ["cardDescription"] }, [
-        document.createTextNode(actor.birthdate || "unknow"),
+        document.createTextNode(data.birthdate || "unknow"),
       ]),
     ]),
   ]);
