@@ -3,6 +3,7 @@
 fetch("./assets/js/data.json")
   .then((response) => response.json())
   .then((data) => {
+    const cardsContainer = document.getElementById("cardsContainer");
     const HTMLElements = data
       .filter(
         (data) =>
@@ -15,8 +16,6 @@ fetch("./assets/js/data.json")
   })
   .catch()
   .finally();
-
-const cardsContainer = document.getElementById("cardsContainer");
 
 function createActorCards(data) {
   return createElement("li", { classNames: ["cardWrapper"] }, [
